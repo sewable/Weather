@@ -19,11 +19,11 @@ public class Location {
     @Column(name = "city_name")
     private String cityName;
 
-    @Column(name = "length")
-    private Double length;
+    @Column(name = "latitude")
+    private Double latitude;
 
-    @Column(name = "width")
-    private Double width;
+    @Column(name = "longitude")
+    private Double longitude;
 
     @Column(name = "region")
     private String region;
@@ -31,11 +31,11 @@ public class Location {
     @Column(name = "country")
     private String country;
 
-    public Location(Integer id, String cityName, Double length, Double width, String country) {
+    public Location(Integer id, String cityName, Double latitude, Double longitude, String country) {
         this.id = id;
         this.cityName = cityName;
-        this.length = length;
-        this.width = width;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.country = country;
     }
 }

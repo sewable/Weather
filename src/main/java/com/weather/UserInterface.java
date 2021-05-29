@@ -4,7 +4,11 @@ import java.util.Scanner;
 
 public class UserInterface {
 
-    private LocationController locationController = new LocationController();
+    private final LocationController locationController;
+
+    public UserInterface(LocationController locationController) {
+        this.locationController = locationController;
+    }
 
     public void run() {
         System.out.println("Application running");
