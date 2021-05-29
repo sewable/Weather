@@ -13,4 +13,9 @@ public class LocationRepositoryMock implements LocationRepository {
         locations.add(location);
         return location;
     }
+
+    @Override
+    public List<Location> getAllLocations() {
+        return null;
+    }
 }

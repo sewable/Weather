@@ -1,6 +1,9 @@
 package com.weather;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 public class LocationController {
 
@@ -15,6 +18,15 @@ public class LocationController {
         try {
             Location location = locationService.createNewLocation(cityName, length, width, region, country);
             return objectMapper.writeValueAsString(location);
+        } catch (Exception e) {
+            return "Error message: " + e.getMessage();
+        }
+    }
+
+    public String showAllLocations() {
+        try {
+            List<Location> locations = locationService.showAllLocations();
+            return objectMapper.writeValueAsString(locations);
         } catch (Exception e) {
             return "Error message: " + e.getMessage();
         }

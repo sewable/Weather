@@ -121,4 +121,22 @@ public class LocationServiceTest {
         // then
         assertThat(result).isExactlyInstanceOf(RuntimeException.class);
     }
+
+    @Test
+    public void whenCreateNewLocation_givenNullRegion_thenCreateNullRegion() {
+        // when
+        Location result = locationService.createNewLocation("city", 180.0, 90.0, null, "country");
+
+        // then
+        assertThat(result.getRegion()).isEqualTo(null);
+    }
+
+    @Test
+    public void whenCreateNewLocation_givenBlankRegion_thenCreateNullRegion() {
+        // when
+        Location result = locationService.createNewLocation("city", 180.0, 90.0, "    ", "country");
+
+        // then
+        assertThat(result.getRegion()).isEqualTo(null);
+    }
 }
