@@ -4,8 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LocationController {
 
-    private LocationService locationService = new LocationService();
+    private final LocationService locationService;
     private ObjectMapper objectMapper = new ObjectMapper();
+
+    public LocationController(LocationService locationService) {
+        this.locationService = locationService;
+    }
 
     public String createNewLocation(String cityName, Double length, Double width, String region, String country) {
         try {
