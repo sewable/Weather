@@ -8,19 +8,14 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 public class LocationRepositoryImpl implements LocationRepository {
 
     private SessionFactory sessionFactory;
 
-    public LocationRepositoryImpl() {
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure()
-                .build();
-
-        sessionFactory = new MetadataSources(registry)
-                .buildMetadata()
-                .buildSessionFactory();
+    public LocationRepositoryImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
@@ -49,4 +44,12 @@ public class LocationRepositoryImpl implements LocationRepository {
 
         return locations;
     }
+
+    @Override
+    public Optional<Location> findById(Long id) {
+        // todo to implement
+        return Optional.empty();
+    }
+
+
 }

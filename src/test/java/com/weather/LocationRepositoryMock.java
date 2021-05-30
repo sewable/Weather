@@ -2,6 +2,7 @@ package com.weather;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class LocationRepositoryMock implements LocationRepository {
 
@@ -17,5 +18,11 @@ public class LocationRepositoryMock implements LocationRepository {
     @Override
     public List<Location> getAllLocations() {
         return null;
+    }
+
+    @Override
+    public Optional<Location> findById(Long id) {
+        return locations.stream()
+                .findFirst();
     }
 }
