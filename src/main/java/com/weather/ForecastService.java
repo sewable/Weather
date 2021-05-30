@@ -21,6 +21,7 @@ public class ForecastService {
             HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
             String responseBody = response.body();
             System.out.println(responseBody);
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
