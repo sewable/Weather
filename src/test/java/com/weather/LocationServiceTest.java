@@ -3,6 +3,9 @@ package com.weather;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
@@ -138,5 +141,26 @@ public class LocationServiceTest {
 
         // then
         assertThat(result.getRegion()).isEqualTo(null);
+    }
+
+    @Test
+    public void whenShowingAllLocations_givenLocationList_thenShowAllLocations() {
+        // when
+        Location location = locationService.createNewLocation("Kielce", 12.5, 45.7, null, "Poland");
+        List<Location> result = new ArrayList<>();
+        result.add(location);
+
+        // then
+        assertThat(!result.isEmpty());
+    }
+
+    @Test
+    public void whenShowingAllLocations_givenEmptyLocationList_thenThrowsAnException() {
+        // when
+        Throwable result = catchThrowable(() -> locationService.showAllLocations());
+
+        // then
+        assertThat(result).isInstanceOf(RuntimeException.class);
+        assertThat(result).isInstanceOf(NullPointerException.class);
     }
 }

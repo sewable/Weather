@@ -38,7 +38,9 @@ public class LocationService {
     }
 
     public List<Location> showAllLocations() {
-
+        if(locationRepository.getAllLocations().isEmpty()) {
+            throw new RuntimeException("List is empty");
+        }
         return locationRepository.getAllLocations();
     }
 }
