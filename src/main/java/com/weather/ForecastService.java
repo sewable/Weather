@@ -14,10 +14,11 @@ import java.time.LocalDate;
 public class ForecastService {
 
     private final LocationRepository locationRepository;
+    private final ForecastRepository forecastRepository;
     private ObjectMapper objectMapper = new ObjectMapper();
 
     public Forecast getForecast(Long locationId, Integer date) {
-        Location location = locationRepository.findById(locationId).orElseThrow(() -> new RuntimeException("Nie ma lokalizacji o id " + locationId));
+        Location location = locationRepository.findById(locationId).orElseThrow(() -> new RuntimeException("There is no location with " + locationId + " id"));
 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -42,10 +43,9 @@ public class ForecastService {
                             .humidity(s.getHumidity())
                             .location(location)
                             .build())
-                    .orElseThrow(() -> new RuntimeException("Nie znaleziono prognozy dla podanej daty"));
+                    .orElseThrow(() -> new RuntimeException("There is no forecast for passed date"));
 
-            // todo create forecast repository
-            return forecast;
+            return forecastRepository.save(forecast);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

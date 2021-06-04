@@ -18,10 +18,19 @@ public class Forecast {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "temperature")
     private Double temperature;
+
+    @Column(name = "pressure")
     private Double pressure;
+
+    @Column(name = "humidity")
     private Double humidity;
+
+    @Column(name = "wind_speed")
     private Double windSpeed;
+
+    @Column(name = "wind_deg")
     private Double windDeg;
 
     @ManyToOne

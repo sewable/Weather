@@ -9,6 +9,7 @@ public class WeatherApplication {
 
     public static void main(String[] args) {
 
+        // todo https://www.baeldung.com/hibernate-mappingexception-unknown-entity
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure()
                 .build();
@@ -18,9 +19,15 @@ public class WeatherApplication {
                 .buildSessionFactory();
 
         LocationRepositoryImpl locationRepositoryImpl = new LocationRepositoryImpl(sessionFactory);
+        ForecastRepositoryImpl forecastRepositoryImpl = new ForecastRepositoryImpl(sessionFactory);
+
         LocationService locationService = new LocationService(locationRepositoryImpl);
+        ForecastService forecastService = new ForecastService(locationRepositoryImpl, forecastRepositoryImpl);
+
         LocationController locationController = new LocationController(locationService);
-        UserInterface userInterface = new UserInterface(locationController);
+        ForecastController forecastController = new ForecastController(forecastService);
+
+        UserInterface userInterface = new UserInterface(locationController, forecastController);
         userInterface.run();
 
     }
