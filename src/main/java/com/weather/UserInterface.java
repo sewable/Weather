@@ -50,16 +50,16 @@ public class UserInterface {
         System.out.println("Pass city's name: ");
         String cityName = scanner.nextLine();
         System.out.println("Pass latitude: ");
-        Double length = scanner.nextDouble();
+        Double latitude = scanner.nextDouble();
         System.out.println("Pass longitude: ");
-        Double width = scanner.nextDouble();
+        Double longitude = scanner.nextDouble();
         System.out.println("Pass region: ");
         String region = scanner.nextLine();
         scanner.nextLine();
         System.out.println("Pass country's name: ");
         String country = scanner.nextLine();
 
-        String httpResponseBody = locationController.createNewLocation(cityName, length, width, region, country);
+        String httpResponseBody = locationController.createNewLocation(cityName, latitude, longitude, region, country);
         System.out.println("Response from the server: " + httpResponseBody);
         System.out.println();
     }
