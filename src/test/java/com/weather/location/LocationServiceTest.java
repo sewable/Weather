@@ -1,4 +1,4 @@
-package com.weather;
+package com.weather.location;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

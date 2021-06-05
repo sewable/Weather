@@ -1,6 +1,5 @@
-package com.weather;
+package com.weather.location;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;

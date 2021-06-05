@@ -1,26 +1,18 @@
-package com.weather;
+package com.weather.location;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 public class LocationRepositoryImpl implements LocationRepository {
 
     private SessionFactory sessionFactory;
 
-    public LocationRepositoryImpl() {
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure()
-                .build();
-
-        sessionFactory = new MetadataSources(registry)
-                .buildMetadata()
-                .buildSessionFactory();
+    public LocationRepositoryImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
@@ -48,5 +40,18 @@ public class LocationRepositoryImpl implements LocationRepository {
         session.close();
 
         return locations;
+    }
+
+    @Override
+    public Optional<Location> findById(Long id) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Optional<Location> location = Optional.ofNullable(session.find(Location.class, id));
+
+        transaction.commit();
+        session.close();
+
+        return location;
     }
 }

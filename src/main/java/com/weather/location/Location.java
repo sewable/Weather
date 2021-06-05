@@ -1,4 +1,4 @@
-package com.weather;
+package com.weather.location;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "city_name")
     private String cityName;
@@ -31,7 +31,7 @@ public class Location {
     @Column(name = "country")
     private String country;
 
-    public Location(Integer id, String cityName, Double latitude, Double longitude, String country) {
+    public Location(Long id, String cityName, Double latitude, Double longitude, String country) {
         this.id = id;
         this.cityName = cityName;
         this.latitude = latitude;
