@@ -1,7 +1,9 @@
-package com.weather;
+package com.weather.forecast;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.weather.location.Location;
+import com.weather.location.LocationRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.net.URI;

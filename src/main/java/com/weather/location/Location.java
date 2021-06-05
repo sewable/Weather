@@ -1,4 +1,4 @@
-package com.weather;
+package com.weather.location;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

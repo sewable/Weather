@@ -1,4 +1,4 @@
-package com.weather;
+package com.weather.forecast;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

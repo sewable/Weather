@@ -1,5 +1,8 @@
 package com.weather;
 
+import com.weather.forecast.Forecast;
+import com.weather.forecast.ForecastRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 

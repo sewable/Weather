@@ -1,5 +1,6 @@
-package com.weather;
+package com.weather.forecast;
 
+import com.weather.location.Location;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.weather;
+package com.weather.location;
 
 import java.util.List;
 import java.util.Optional;

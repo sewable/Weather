@@ -1,9 +1,13 @@
 package com.weather;
 
+import com.weather.forecast.Forecast;
+import com.weather.forecast.ForecastRepository;
+import com.weather.forecast.ForecastService;
+import com.weather.location.Location;
+import com.weather.location.LocationRepository;
+import com.weather.location.LocationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
