@@ -47,9 +47,7 @@ public class LocationRepositoryImpl implements LocationRepository {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        Optional<Location> location = Optional.ofNullable(session.createQuery("SELECT l FROM locations l WHERE l.id = :id", Location.class)
-                .setParameter("id", id)
-                .getSingleResult());
+        Optional<Location> location = Optional.ofNullable(session.find(Location.class, id));
 
         transaction.commit();
         session.close();

@@ -1,4 +1,4 @@
-package com.weather;
+package com.weather.location;
 
 import com.weather.location.Location;
 import com.weather.location.LocationRepository;

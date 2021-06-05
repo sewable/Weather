@@ -7,5 +7,6 @@
         <property name="connection.password"></property>
         <property name="hbm2ddl.auto">update</property>
         <mapping class="com.weather.location.Location"/>
+        <mapping class="com.weather.forecast.Forecast"/>
     </session-factory>
 </hibernate-configuration>

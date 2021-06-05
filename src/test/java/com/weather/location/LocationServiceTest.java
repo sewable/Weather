@@ -1,8 +1,5 @@
-package com.weather;
+package com.weather.location;
 
-import com.weather.location.Location;
-import com.weather.location.LocationRepository;
-import com.weather.location.LocationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

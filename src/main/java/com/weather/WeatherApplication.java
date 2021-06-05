@@ -15,7 +15,6 @@ public class WeatherApplication {
 
     public static void main(String[] args) {
 
-        // todo https://www.baeldung.com/hibernate-mappingexception-unknown-entity
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure()
                 .build();
