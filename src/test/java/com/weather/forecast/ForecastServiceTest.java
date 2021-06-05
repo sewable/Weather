@@ -30,6 +30,11 @@ public class ForecastServiceTest {
 
         // then
         assertThat(result.getId()).isNotNull();
+        assertThat(result.getTemperature()).isNotNull();
+        assertThat(result.getPressure()).isNotNull();
+        assertThat(result.getHumidity()).isNotNull();
+        assertThat(result.getWindSpeed()).isNotNull();
+        assertThat(result.getWindDeg()).isNotNull();
         assertThat(result.getLocation().getId()).isEqualTo(1L);
     }
 
