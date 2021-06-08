@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class ForecastServiceTest {
 
@@ -18,10 +19,10 @@ public class ForecastServiceTest {
     public void setUp() {
         LocationRepository locationRepository = new LocationRepositoryMock();
         ForecastRepository forecastRepository = new ForecastRepositoryMock();
+        locationService = new LocationService(locationRepository);
         forecastService = new ForecastService(locationRepository, forecastRepository);
     }
 
-    // todo complete tests
     @Test
     public void whenGettingForecast_givenCorrectValues_thenShowForecast() {
         // when
@@ -39,16 +40,45 @@ public class ForecastServiceTest {
     }
 
     @Test
-    public void test() {
-        LocationRepositoryMock locationRepositoryMock = new LocationRepositoryMock();
-        Location location = new Location(null, "Cracow", 45.2, 12.1, "", "Poland");
-        locationRepositoryMock.save(location);
+    public void whenGettingForecast_givenNonExistingLocationId_thenThrowsAnException() {
+        // when
+        Throwable result = catchThrowable(() -> forecastService.getForecast(5L, 1));
 
-        ForecastRepositoryMock forecastRepositoryMock = new ForecastRepositoryMock();
-        forecastRepositoryMock.save(new Forecast(null, 18.4, 1013.1, 50.1, 2.3, 23.6, location));
-
-        ForecastService forecastService = new ForecastService(locationRepositoryMock, forecastRepositoryMock);
-        Forecast forecast = forecastService.getForecast(1L, 1);
-        System.out.println(forecast);
+        // then
+        assertThat(result).isExactlyInstanceOf(RuntimeException.class);
     }
+
+    @Test
+    public void whenGettingForecast_givenTooFarDate_thenThrowsAnException() {
+        // when
+        Location location = locationService.createNewLocation("Kielce", 79.1, 15.4, null, "Poland");
+        Throwable result = catchThrowable(() -> forecastService.getForecast(1L, 9));
+
+        // then
+        assertThat(result).isExactlyInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    public void whenGettingForecast_givenPastDate_thenThrowsAnException() {
+        // when
+        Location location = locationService.createNewLocation("Kielce", 79.1, 15.4, null, "Poland");
+        Throwable result = catchThrowable(() -> forecastService.getForecast(1L, -1));
+
+        // then
+        assertThat(result).isExactlyInstanceOf(RuntimeException.class);
+    }
+
+//    @Test
+//    public void test() {
+//        LocationRepositoryMock locationRepositoryMock = new LocationRepositoryMock();
+//        Location location = new Location(null, "Cracow", 45.2, 12.1, "", "Poland");
+//        locationRepositoryMock.save(location);
+//
+//        ForecastRepositoryMock forecastRepositoryMock = new ForecastRepositoryMock();
+//        forecastRepositoryMock.save(new Forecast(null, 18.4, 1013.1, 50.1, 2.3, 23.6, location));
+//
+//        ForecastService forecastService = new ForecastService(locationRepositoryMock, forecastRepositoryMock);
+//        Forecast forecast = forecastService.getForecast(1L, 1);
+//        System.out.println(forecast);
+//    }
 }
