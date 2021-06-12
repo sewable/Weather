@@ -7,6 +7,9 @@ import com.weather.location.LocationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
@@ -27,7 +30,7 @@ public class ForecastServiceTest {
     public void whenGettingForecast_givenCorrectValues_thenShowForecast() {
         // when
         Location location = locationService.createNewLocation("Kielce", 79.1, 15.4, null, "Poland");
-        Forecast result = forecastService.getForecast(1L, 1);
+        Forecast result = forecastService.getForecast(1L, LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()));
 
         // then
         assertThat(result.getId()).isNotNull();
@@ -42,7 +45,7 @@ public class ForecastServiceTest {
     @Test
     public void whenGettingForecast_givenNonExistingLocationId_thenThrowsAnException() {
         // when
-        Throwable result = catchThrowable(() -> forecastService.getForecast(5L, 1));
+        Throwable result = catchThrowable(() -> forecastService.getForecast(5L, LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth())));
 
         // then
         assertThat(result).isExactlyInstanceOf(RuntimeException.class);
@@ -52,7 +55,7 @@ public class ForecastServiceTest {
     public void whenGettingForecast_givenTooFarDate_thenThrowsAnException() {
         // when
         Location location = locationService.createNewLocation("Kielce", 79.1, 15.4, null, "Poland");
-        Throwable result = catchThrowable(() -> forecastService.getForecast(1L, 9));
+        Throwable result = catchThrowable(() -> forecastService.getForecast(1L, LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth() + 9)));
 
         // then
         assertThat(result).isExactlyInstanceOf(RuntimeException.class);
@@ -62,10 +65,51 @@ public class ForecastServiceTest {
     public void whenGettingForecast_givenPastDate_thenThrowsAnException() {
         // when
         Location location = locationService.createNewLocation("Kielce", 79.1, 15.4, null, "Poland");
-        Throwable result = catchThrowable(() -> forecastService.getForecast(1L, -1));
+        Throwable result = catchThrowable(() -> forecastService.getForecast(1L, LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth() - 1)));
 
         // then
         assertThat(result).isExactlyInstanceOf(RuntimeException.class);
+    }
+
+    //todo test date
+    @Test
+    public void whenGettingForecast_givenTooForwardLookingMonth_thenThrowsAnException() {
+        // when
+        Location location = locationService.createNewLocation("Kielce", 79.1, 15.4, null, "Poland");
+        Throwable result = catchThrowable(() -> forecastService.getForecast(1L, LocalDate.of(LocalDate.now().getYear(), 13, LocalDate.now().getDayOfMonth())));
+
+        // then
+        assertThat(result).isExactlyInstanceOf(DateTimeException.class);
+    }
+
+    @Test
+    public void whenGettingForecast_givenTooSoonMonth_thenThrowsAnException() {
+        // when
+        Location location = locationService.createNewLocation("Kielce", 79.1, 15.4, null, "Poland");
+        Throwable result = catchThrowable(() -> forecastService.getForecast(1L, LocalDate.of(LocalDate.now().getYear(), -1, LocalDate.now().getDayOfMonth())));
+
+        // then
+        assertThat(result).isExactlyInstanceOf(DateTimeException.class);
+    }
+
+    @Test
+    public void whenGettingForecast_givenTooForwardLookingDay_thenThrowsAnException() {
+        // when
+        Location location = locationService.createNewLocation("Kielce", 79.1, 15.4, null, "Poland");
+        Throwable result = catchThrowable(() -> forecastService.getForecast(1L, LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 32)));
+
+        // then
+        assertThat(result).isExactlyInstanceOf(DateTimeException.class);
+    }
+
+    @Test
+    public void whenGettingForecast_givenTooSoonDay_thenThrowsAnException() {
+        // when
+        Location location = locationService.createNewLocation("Kielce", 79.1, 15.4, null, "Poland");
+        Throwable result = catchThrowable(() -> forecastService.getForecast(1L, LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 0)));
+
+        // then
+        assertThat(result).isExactlyInstanceOf(DateTimeException.class);
     }
 
 //    @Test

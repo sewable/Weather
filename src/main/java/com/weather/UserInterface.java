@@ -3,6 +3,7 @@ package com.weather;
 import com.weather.forecast.ForecastController;
 import com.weather.location.LocationController;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -74,8 +75,14 @@ public class UserInterface {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Pass city's id: ");
         Long locationId = scanner.nextLong();
-        System.out.println("Pass day from today(1 - 8): ");
-        Integer date = scanner.nextInt();
+        System.out.println("Pass day of month: ");
+        int day = scanner.nextInt();
+        System.out.println("Pass month(1 - 12): ");
+        int month = scanner.nextInt();
+        System.out.println("Pass year: ");
+        int year = scanner.nextInt();
+
+        LocalDate date = LocalDate.of(year, month, day);
 
         String httpResponseBody = forecastController.getForecast(locationId, date);
         System.out.println("Response from the server: " + httpResponseBody);
