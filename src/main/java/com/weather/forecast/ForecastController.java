@@ -2,6 +2,8 @@ package com.weather.forecast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.time.LocalDate;
+
 public class ForecastController {
 
     private final ForecastService forecastService;
@@ -11,7 +13,7 @@ public class ForecastController {
         this.forecastService = forecastService;
     }
 
-    public String getForecast(Long locationId, Integer date) {
+    public String getForecast(Long locationId, LocalDate date) {
         try {
             Forecast forecast = forecastService.getForecast(locationId, date);
             return objectMapper.writeValueAsString(forecast);
