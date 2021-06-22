@@ -28,4 +28,10 @@ public class LocationRepositoryMock implements LocationRepository {
         return locations.stream()
                 .findFirst();
     }
+
+    @Override
+    public Optional<Location> findByCity(String city) {
+        return locations.stream()
+                .findFirst();
+    }
 }
