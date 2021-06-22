@@ -21,4 +21,13 @@ public class ForecastController {
             return "Error message: " + e.getMessage();
         }
     }
+
+    public String getForecastByCityName(String city, LocalDate date) {
+        try {
+            Forecast forecast = forecastService.getForecastByCityName(city, date);
+            return objectMapper.writeValueAsString(forecast);
+        } catch (Exception e) {
+            return "Error message: " + e.getMessage();
+        }
+    }
 }

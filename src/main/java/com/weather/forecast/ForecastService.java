@@ -10,21 +10,28 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class ForecastService {
 
     private final LocationRepository locationRepository;
     private final ForecastRepository forecastRepository;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public Forecast getForecast(Long locationId, LocalDate date) {
         Location location = locationRepository.findById(locationId).orElseThrow(() -> new RuntimeException("There is no location with " + locationId + " id"));
 
+        return saveForecast(location, date);
+    }
+
+    public Forecast getForecastByCityName(String city, LocalDate date) {
+        Location location = locationRepository.findByCity(city).orElseThrow(() -> new RuntimeException("There is no such city"));
+
+        return saveForecast(location, date);
+    }
+
+    private Forecast saveForecast(Location location, LocalDate date) {
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .GET()

@@ -54,4 +54,19 @@ public class LocationRepositoryImpl implements LocationRepository {
 
         return location;
     }
+
+    @Override
+    public Optional<Location> findByCity(String cityName) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Optional<Location> location = Optional.ofNullable(session.createQuery("SELECT l FROM locations l WHERE l.cityName = :cityName", Location.class)
+            .setParameter("cityName", cityName)
+            .getSingleResult());
+
+        transaction.commit();
+        session.close();
+
+        return location;
+    }
 }

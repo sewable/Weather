@@ -71,7 +71,6 @@ public class ForecastServiceTest {
         assertThat(result).isExactlyInstanceOf(RuntimeException.class);
     }
 
-    //todo test date
     @Test
     public void whenGettingForecast_givenTooForwardLookingMonth_thenThrowsAnException() {
         // when
@@ -110,6 +109,15 @@ public class ForecastServiceTest {
 
         // then
         assertThat(result).isExactlyInstanceOf(DateTimeException.class);
+    }
+
+    @Test
+    public void whenGettingForecast_givenNonExistingCityName_thenThrowsAnException() {
+        // when
+        Throwable result = catchThrowable(() -> forecastService.getForecastByCityName("Some city's name", LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth())));
+
+        // then
+        assertThat(result).isExactlyInstanceOf(RuntimeException.class);
     }
 
 //    @Test

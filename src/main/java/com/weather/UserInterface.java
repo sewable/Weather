@@ -26,7 +26,8 @@ public class UserInterface {
             System.out.println("1. Add new location");
             System.out.println("2. Show all locations");
             System.out.println("3. Show forecast for location");
-            System.out.println("4. Exit application");
+            System.out.println("4. Show forecast for location using city's name");
+            System.out.println("5. Exit application");
 
             int response = scanner.nextInt();
 
@@ -41,6 +42,9 @@ public class UserInterface {
                     getForecast();
                     break;
                 case 4:
+                    getForecastByCityName();
+                    break;
+                case 5:
                     return;
             }
         }
@@ -85,6 +89,24 @@ public class UserInterface {
         LocalDate date = LocalDate.of(year, month, day);
 
         String httpResponseBody = forecastController.getForecast(locationId, date);
+        System.out.println("Response from the server: " + httpResponseBody);
+        System.out.println();
+    }
+
+    private void getForecastByCityName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Pass city's name: ");
+        String city = scanner.nextLine();
+        System.out.println("Pass day of month: ");
+        int day = scanner.nextInt();
+        System.out.println("Pass month(1 - 12): ");
+        int month = scanner.nextInt();
+        System.out.println("Pass year: ");
+        int year = scanner.nextInt();
+
+        LocalDate date = LocalDate.of(year, month, day);
+
+        String httpResponseBody = forecastController.getForecastByCityName(city, date);
         System.out.println("Response from the server: " + httpResponseBody);
         System.out.println();
     }
